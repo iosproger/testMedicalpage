@@ -2,10 +2,116 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Medical Servise</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f9f9f9;
+        }
+
+        h1 {
+            margin: 20px 0;
+        }
+
+        .menu {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            width: 90%;
+            max-width: 800px;
+        }
+
+        .menu-item {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .menu-item img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .menu-item h2 {
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+
+        .menu-item p {
+            color: #666;
+            margin: 5px 0;
+        }
+
+        .pagination {
+            margin: 20px 0;
+        }
+
+        .pagination button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .pagination button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-    <p>Medical Servise</p>
-    <p>Medical Servise</p>
+    <h1>Menu</h1>
+
+    <div class="menu">
+        <div class="menu-item">
+            <img src="https://via.placeholder.com/150" alt="Item 1">
+            <h2>Item Name 1</h2>
+            <p>Price: $10</p>
+        </div>
+        <div class="menu-item">
+            <img src="https://via.placeholder.com/150" alt="Item 2">
+            <h2>Item Name 2</h2>
+            <p>Price: $15</p>
+        </div>
+        <div class="menu-item">
+            <img src="https://via.placeholder.com/150" alt="Item 3">
+            <h2>Item Name 3</h2>
+            <p>Price: $20</p>
+        </div>
+    </div>
+
+    <div class="pagination">
+        <button onclick="nextPage()">Next Page</button>
+    </div>
+
+    <script>
+        console.log("Page loaded");
+
+        function nextPage() {
+            console.log("Next page button clicked");
+            alert('Moving to the next page...');
+        }
+
+        document.querySelectorAll('.menu-item').forEach((item, index) => {
+            console.log(`Menu item ${index + 1}:`, {
+                image: item.querySelector('img').src,
+                name: item.querySelector('h2').textContent,
+                price: item.querySelector('p').textContent
+            });
+        });
+    </script>
 </body>
 </html>
