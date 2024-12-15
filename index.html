@@ -30,7 +30,11 @@
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script>
         // Initialize Telegram WebApp API
-        Telegram.WebApp.init();
+        let tg = window.Telegram.WebApp;
+
+        tg.expand();
+
+        
 
         // Attach the submit event to the form
         document.getElementById('service-form').onsubmit = function(event) {
@@ -52,8 +56,9 @@
             console.log("Sending data:", JSON.stringify(formData));
 
             // Send the data back to the bot using Telegram's WebApp API
-            Telegram.WebApp.sendData(JSON.stringify(formData));
+            tg.sendData(JSON.stringify(formData));
 
+            tg.close();
             // Optionally, show a message to the user that data is being sent
             alert('Data sent to Telegram bot!');
         };
