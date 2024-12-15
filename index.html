@@ -2,37 +2,105 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu</title>
-    <link rel="stylesheet" href="styles.css">
+    <title><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Service Selection</title>
+  <style>
+    .service-card {
+      border: 1px solid #ddd;
+      padding: 10px;
+      margin: 10px;
+      display: inline-block;
+      width: 30%;
+      text-align: center;
+    }
+    .selected {
+      background-color: #4CAF50; /* Green */
+    }
+    .selected button {
+      background-color: red;
+    }
+  </style>
 </head>
 <body>
-    <h1>Menu</h1>
 
-    <div class="menu">
-        <div class="menu-servise">
-            <button onclick="selectService('service1')">Service 1</button>
-        </div>
-        <div class="menu-item">
-            <button onclick="selectService('service2')">Service 2</button>
-        </div>
-        <div class="menu-item">
-            <button onclick="selectService('service3')">Service 3</button>
-        </div>
-        <div class="menu-item">
-            <button onclick="selectService('service4')">Service 4</button>
-        </div>
+  <h1>Choose a Service</h1>
+
+  <div id="service-list">
+    <!-- Example of a service card -->
+    <div class="service-card" id="service1">
+      <img src="service1.jpg" alt="Service 1" width="100">
+      <h3>Service 1</h3>
+      <p>$100</p>
+      <button onclick="selectService('service1')">Add</button>
     </div>
-
-    <div class="pagination">
-        <button onclick="location.href='form.html'">Open Form</button>
+    <div class="service-card" id="service2">
+      <img src="service2.jpg" alt="Service 2" width="100">
+      <h3>Service 2</h3>
+      <p>$150</p>
+      <button onclick="selectService('service2')">Add</button>
     </div>
+    <!-- Add more services here -->
+  </div>
 
-    <script>
-        function selectService(serviceName) {
-            localStorage.setItem('selectedService', serviceName); // Save selected service in localStorage
-            alert(`You selected ${serviceName}`);
-        }
-    </script>
+  <button id="orderButton" onclick="showForm()" style="display:none;">Order</button>
+
+  <div id="order-form" style="display:none;">
+    <h2>Order Form</h2>
+    <form id="orderForm">
+      <label>Name: <input type="text" name="name" required></label><br>
+      <label>Username: <input type="text" name="username" required></label><br>
+      <label>Age: <input type="number" name="age" required></label><br>
+      <label>Number: <input type="text" name="number" required></label><br>
+      <label>Address: <input type="text" name="address" required></label><br>
+      <label>Date & Time: <input type="datetime-local" name="date_time" required></label><br>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <script>
+    let selectedServices = [];
+
+    function selectService(serviceId) {
+      const serviceCard = document.getElementById(serviceId);
+      const button = serviceCard.querySelector('button');
+
+      if (!serviceCard.classList.contains('selected')) {
+        serviceCard.classList.add('selected');
+        button.innerText = 'Remove';
+        selectedServices.push(serviceId);
+      } else {
+        serviceCard.classList.remove('selected');
+        button.innerText = 'Add';
+        selectedServices = selectedServices.filter(id => id !== serviceId);
+      }
+
+      document.getElementById('orderButton').style.display = selectedServices.length > 0 ? 'block' : 'none';
+    }
+
+    function showForm() {
+      if (selectedServices.length > 0) {
+        document.getElementById('order-form').style.display = 'block';
+      } else {
+        alert('Please select a service first.');
+      }
+    }
+
+    document.getElementById('orderForm').onsubmit = function(event) {
+      event.preventDefault();
+      // Send form data to the backend here
+      alert('Order Submitted');
+    }
+  </script>
+
+</body>
+</html>
+</title>
+</head>
+<body>
+
 </body>
 </html>
