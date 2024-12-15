@@ -1,39 +1,32 @@
-// Array to store selected services
-let selectedServices = [];
+let selectedService = null;
 
-// Function to handle service selection
 function selectService(service) {
-    // Check if service is already selected
-    const index = selectedServices.indexOf(service);
-    if (index === -1) {
-        // Add service if not selected
-        selectedServices.push(service);
-        alert(service + " selected");
-    } else {
-        // Remove service if already selected
-        selectedServices.splice(index, 1);
-        alert(service + " unselected");
+    selectedService = service;  // Store the selected service
+    alert(`Service Selected: ${service}`);
+}
+
+// Pass selected service data to the form
+function setServiceInForm() {
+    const serviceInput = document.getElementById('selectedService');
+    if (serviceInput) {
+        serviceInput.value = selectedService; // Set the selected service into the hidden field
     }
 }
 
-// Function to submit form data
 function submitData() {
-    // Collect form data
     const formData = {
-        servise: selectedServices,  // Add the selected services to form data
-        name: document.getElementById('name').value,
-        surname: document.getElementById('surname').value,
+        servise: selectedService,  // Include the selected service
+        name: document.getElementById('name') ? document.getElementById('name').value : '',
+        surname: document.getElementById('surname') ? document.getElementById('surname').value : '',
         age: document.getElementById('age').value,
         number: document.getElementById('number').value,
         address: document.getElementById('address').value,
         date: document.getElementById('date').value,
-        time: document.getElementById('time').value,
+        time: document.getElementById('time').value
     };
 
-    // Convert form data to JSON format
     const jsonData = JSON.stringify(formData);
 
-    // Check if Telegram WebApp is available and send data
     if (window.Telegram && Telegram.WebApp) {
         Telegram.WebApp.sendData(jsonData);
         alert("Data sent to Telegram bot successfully!");
