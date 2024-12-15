@@ -43,23 +43,24 @@
     <script>
         // When the page loads, check if a service is selected
         function setServiceInForm() {
-            const selectedService = localStorage.getItem('selectedService'); // Retrieve service from localStorage
+            // Check if the service is selected (coming from Telegram WebApp data)
+            const urlParams = new URLSearchParams(window.location.search);
+            const selectedService = urlParams.get('selectedService'); // Get service from URL parameter
             console.log('Selected Service:', selectedService); // Debugging log
-            if (selectedService) {
-                // Set selected service in hidden input field
-                document.getElementById('selectedService').value = selectedService;
 
-                // Hide name and surname fields if a service is selected
-                document.getElementById('nameSurnameFields').style.display = 'none';
+            // If a service is selected, hide the name and surname fields
+            if (selectedService) {
+                document.getElementById('selectedService').value = selectedService;
+                document.getElementById('nameSurnameFields').style.display = 'none'; // Hide name & surname fields
             } else {
-                // Show name and surname fields if no service is selected
+                // If no service is selected, show the name and surname fields
                 document.getElementById('nameSurnameFields').style.display = 'block';
             }
         }
 
         function submitData() {
             const formData = {
-                servise: localStorage.getItem('selectedService'),  // Use selected service from localStorage
+                servise: document.getElementById('selectedService').value,  // Use selected service
                 name: document.getElementById('name') ? document.getElementById('name').value : '',
                 surname: document.getElementById('surname') ? document.getElementById('surname').value : '',
                 age: document.getElementById('age').value,
