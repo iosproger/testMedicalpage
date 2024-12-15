@@ -44,6 +44,7 @@
         // When the page loads, check if a service is selected
         function setServiceInForm() {
             const selectedService = localStorage.getItem('selectedService'); // Retrieve service from localStorage
+            console.log('Selected Service:', selectedService); // Debugging log
             if (selectedService) {
                 // Set selected service in hidden input field
                 document.getElementById('selectedService').value = selectedService;
@@ -67,6 +68,8 @@
                 date: document.getElementById('date').value,
                 time: document.getElementById('time').value
             };
+
+            console.log('Form Data:', formData); // Debugging log
 
             const jsonData = JSON.stringify(formData);
 
