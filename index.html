@@ -10,25 +10,29 @@
     <h1>Menu</h1>
 
     <div class="menu">
-        <div class="menu-item" onclick="selectService('service1')">
+        <div class="menu-item">
             <img src="https://via.placeholder.com/150" alt="Item 1">
             <h2>Service Name 1</h2>
             <p>Price: $10</p>
+            <button onclick="selectService('service1')">Select</button>
         </div>
-        <div class="menu-item" onclick="selectService('service2')">
+        <div class="menu-item">
             <img src="https://via.placeholder.com/150" alt="Item 2">
             <h2>Service Name 2</h2>
             <p>Price: $15</p>
+            <button onclick="selectService('service2')">Select</button>
         </div>
-        <div class="menu-item" onclick="selectService('service3')">
+        <div class="menu-item">
             <img src="https://via.placeholder.com/150" alt="Item 3">
             <h2>Service Name 3</h2>
             <p>Price: $20</p>
+            <button onclick="selectService('service3')">Select</button>
         </div>
-        <div class="menu-item" onclick="selectService('service4')">
+        <div class="menu-item">
             <img src="https://via.placeholder.com/150" alt="Item 4">
             <h2>Service Name 4</h2>
             <p>Price: $25</p>
+            <button onclick="selectService('service4')">Select</button>
         </div>
     </div>
 
@@ -36,6 +40,12 @@
         <button onclick="location.href='form.html'">Open Form</button>
     </div>
 
-    <script src="scripts.js"></script>
+    <script>
+        // Store selected service in localStorage
+        function selectService(service) {
+            localStorage.setItem('selectedService', service); // Store the service
+            alert(`Service Selected: ${service}`);
+        }
+    </script>
 </body>
 </html>

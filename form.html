@@ -6,15 +6,21 @@
     <title>Form</title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://telegram.org/js/telegram-web-app.js?56"></script>
+    <script src="scripts.js"></script>
 </head>
-<body>
+<body onload="setServiceInForm()">
     <h1>Fill the Form</h1>
     <form id="userForm">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required>
+        <!-- Hidden input to hold the selected service -->
+        <input type="hidden" id="selectedService" name="selectedService" value="">
 
-        <label for="surname">Surname:</label>
-        <input type="text" id="surname" name="surname" required>
+        <div id="nameSurnameFields">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name">
+
+            <label for="surname">Surname:</label>
+            <input type="text" id="surname" name="surname">
+        </div>
 
         <label for="age">Age:</label>
         <input type="number" id="age" name="age" required>
@@ -23,7 +29,7 @@
         <input type="tel" id="number" name="number" required>
 
         <label for="address">Address:</label>
-        <input type="text" id="address" name="address" required>
+        <input type="text" id="address" name="address">
 
         <label for="date">Date:</label>
         <input type="date" id="date" name="date" required>
@@ -34,6 +40,43 @@
         <button type="button" onclick="submitData()">Submit</button>
     </form>
 
-    <script src="scripts.js"></script>
+    <script>
+        // When the page loads, check if a service is selected
+        function setServiceInForm() {
+            const selectedService = localStorage.getItem('selectedService'); // Retrieve service from localStorage
+            if (selectedService) {
+                // Set selected service in hidden input field
+                document.getElementById('selectedService').value = selectedService;
+
+                // Hide name and surname fields if a service is selected
+                document.getElementById('nameSurnameFields').style.display = 'none';
+            } else {
+                // Show name and surname fields if no service is selected
+                document.getElementById('nameSurnameFields').style.display = 'block';
+            }
+        }
+
+        function submitData() {
+            const formData = {
+                servise: localStorage.getItem('selectedService'),  // Use selected service from localStorage
+                name: document.getElementById('name') ? document.getElementById('name').value : '',
+                surname: document.getElementById('surname') ? document.getElementById('surname').value : '',
+                age: document.getElementById('age').value,
+                number: document.getElementById('number').value,
+                address: document.getElementById('address').value,
+                date: document.getElementById('date').value,
+                time: document.getElementById('time').value
+            };
+
+            const jsonData = JSON.stringify(formData);
+
+            if (window.Telegram && Telegram.WebApp) {
+                Telegram.WebApp.sendData(jsonData);
+                alert("Data sent to Telegram bot successfully!");
+            } else {
+                console.error("Telegram WebApp is not available");
+            }
+        }
+    </script>
 </body>
 </html>
