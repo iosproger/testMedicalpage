@@ -2,105 +2,49 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title><!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Service Selection</title>
-  <style>
-    .service-card {
-      border: 1px solid #ddd;
-      padding: 10px;
-      margin: 10px;
-      display: inline-block;
-      width: 30%;
-      text-align: center;
-    }
-    .selected {
-      background-color: #4CAF50; /* Green */
-    }
-    .selected button {
-      background-color: red;
-    }
-  </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telegram WebApp</title>
 </head>
 <body>
-
-  <h1>Choose a Service</h1>
-
-  <div id="service-list">
-    <!-- Example of a service card -->
-    <div class="service-card" id="service1">
-      <img src="service1.jpg" alt="Service 1" width="100">
-      <h3>Service 1</h3>
-      <p>$100</p>
-      <button onclick="selectService('service1')">Add</button>
-    </div>
-    <div class="service-card" id="service2">
-      <img src="service2.jpg" alt="Service 2" width="100">
-      <h3>Service 2</h3>
-      <p>$150</p>
-      <button onclick="selectService('service2')">Add</button>
-    </div>
-    <!-- Add more services here -->
-  </div>
-
-  <button id="orderButton" onclick="showForm()" style="display:none;">Order</button>
-
-  <div id="order-form" style="display:none;">
-    <h2>Order Form</h2>
-    <form id="orderForm">
-      <label>Name: <input type="text" name="name" required></label><br>
-      <label>Username: <input type="text" name="username" required></label><br>
-      <label>Age: <input type="number" name="age" required></label><br>
-      <label>Number: <input type="text" name="number" required></label><br>
-      <label>Address: <input type="text" name="address" required></label><br>
-      <label>Date & Time: <input type="datetime-local" name="date_time" required></label><br>
-      <button type="submit">Submit</button>
+    <h1>Service Selection</h1>
+    <form id="service-form">
+        <label for="service">Choose a service:</label>
+        <select id="service" name="service">
+            <option value="service1">Service 1</option>
+            <option value="service2">Service 2</option>
+            <option value="service3">Service 3</option>
+        </select>
+        <br><br>
+        <input type="text" id="name" name="name" placeholder="Your Name" required>
+        <input type="number" id="age" name="age" placeholder="Your Age" required>
+        <br><br>
+        <button type="submit">Submit</button>
     </form>
-  </div>
 
-  <script>
-    let selectedServices = [];
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script>
+        // Make sure the Telegram WebApp is initialized
+        Telegram.WebApp.init();
 
-    function selectService(serviceId) {
-      const serviceCard = document.getElementById(serviceId);
-      const button = serviceCard.querySelector('button');
+        // Attach the submit event to the form
+        document.getElementById('service-form').onsubmit = function(event) {
+            event.preventDefault();  // Prevent the form from submitting normally
 
-      if (!serviceCard.classList.contains('selected')) {
-        serviceCard.classList.add('selected');
-        button.innerText = 'Remove';
-        selectedServices.push(serviceId);
-      } else {
-        serviceCard.classList.remove('selected');
-        button.innerText = 'Add';
-        selectedServices = selectedServices.filter(id => id !== serviceId);
-      }
+            // Get the values from the form
+            const service = document.getElementById('service').value;
+            const name = document.getElementById('name').value;
+            const age = document.getElementById('age').value;
 
-      document.getElementById('orderButton').style.display = selectedServices.length > 0 ? 'block' : 'none';
-    }
+            // Create the data object you want to send to the bot
+            const formData = {
+                service: service,
+                name: name,
+                age: age
+            };
 
-    function showForm() {
-      if (selectedServices.length > 0) {
-        document.getElementById('order-form').style.display = 'block';
-      } else {
-        alert('Please select a service first.');
-      }
-    }
-
-    document.getElementById('orderForm').onsubmit = function(event) {
-      event.preventDefault();
-      // Send form data to the backend here
-      alert('Order Submitted');
-    }
-  </script>
-
-</body>
-</html>
-</title>
-</head>
-<body>
-
+            // Send the data back to the bot
+            Telegram.WebApp.sendData(JSON.stringify(formData));
+        };
+    </script>
 </body>
 </html>
