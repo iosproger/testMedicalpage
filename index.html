@@ -41,11 +41,6 @@
             const name = document.getElementById('name').value;
             const age = document.getElementById('age').value;
 
-            // Log the form data for debugging
-            console.log("Service:", service);
-            console.log("Name:", name);
-            console.log("Age:", age);
-
             // Create the data object to send to the bot
             const formData = {
                 service: service,
@@ -53,7 +48,7 @@
                 age: age
             };
 
-            // Log the form data to ensure it's being captured correctly
+            // Log the data to console (for debugging)
             console.log("Sending data:", JSON.stringify(formData));
 
             // Send the data back to the bot using Telegram's WebApp API
