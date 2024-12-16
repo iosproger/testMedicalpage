@@ -213,7 +213,8 @@
     <input type="number" id="age" placeholder="Age" required>
     <input type="tel" id="number" placeholder="Phone Number" required>
     <input type="text" id="address" placeholder="Address" required>
-    <input type="datetime-local" id="datetime" required>
+    <input type="date" id="date" name="date" required>
+    <input type="time" id="time" name="time" required>
     <button id="send">Send</button>
   </div>
 
@@ -260,7 +261,8 @@
       const age = document.getElementById('age').value.trim();
       const number = document.getElementById('number').value.trim();
       const address = document.getElementById('address').value.trim();
-      const datetime = document.getElementById('datetime').value.trim();
+      const date = document.getElementById('date').value.trim();
+      const time = document.getElementById('time').value.trim();
 
       if (name && username && age && number && address && datetime) {
         const data = {
@@ -270,7 +272,8 @@
           age,
           number,
           address,
-          datetime,
+          date,
+          time,
         };
 
         // Check if Telegram WebApp object is available
