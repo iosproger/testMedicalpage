@@ -80,20 +80,33 @@
 </head>
 <body>
   <div class="menu">
-    <!-- Example service items -->
-    <div class="card" data-service="Service 1">
-      <img src="https://via.placeholder.com/150" alt="Service 1">
-      <h4>Service 1</h4>
-      <p>$10</p>
-      <button class="add">Add</button>
-    </div>
-    <div class="card" data-service="Service 2">
-      <img src="https://via.placeholder.com/150" alt="Service 2">
-      <h4>Service 2</h4>
-      <p>$20</p>
-      <button class="add">Add</button>
-    </div>
+  <!-- Example service items -->
+  <div class="card" data-service="Service 1">
+    <img src="images/img1.jpeg" alt="Service 1">
+    <h4>Tekshirish</h4>
+    <p>7000 so'm</p>
+    <button class="add">Add</button>
   </div>
+  <div class="card" data-service="Service 2">
+    <img src="images/img2.jpg" alt="Service 2">
+    <h4>Ukol</h4>
+    <p>3000 so'm</p>
+    <button class="add">Add</button>
+  </div>
+  <div class="card" data-service="Service 3">
+    <img src="images/img3.png" alt="Service 3">
+    <h4>Kapilnitsiya</h4>
+    <p>5000 so'm</p>
+    <button class="add">Add</button>
+  </div>
+  <div class="card" data-service="Service 4">
+    <img src="images/img4.jpg" alt="Service 4">
+    <h4>Muolaja</h4>
+    <p>3000 so'm</p>
+    <button class="add">Add</button>
+  </div>
+</div>
+
   <button class="order-btn" style="display: none;">Order</button>
 
   <div class="form">
@@ -110,9 +123,8 @@
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script>
     // Initialize Telegram WebApp API
-    let tg = window.Telegram.WebApp;
 
-    tg.expand();
+
     const menu = document.querySelector('.menu');
     const orderBtn = document.querySelector('.order-btn');
     const form = document.querySelector('.form');
@@ -146,16 +158,16 @@
     });
 
     document.getElementById('send').addEventListener('click', () => {
-      const name = document.getElementById('name').value;
-      const username = document.getElementById('username').value;
-      const age = document.getElementById('age').value;
-      const number = document.getElementById('number').value;
-      const address = document.getElementById('address').value;
-      const datetime = document.getElementById('datetime').value;
+      const name = document.getElementById('name').value.trim();
+      const username = document.getElementById('username').value.trim();
+      const age = document.getElementById('age').value.trim();
+      const number = document.getElementById('number').value.trim();
+      const address = document.getElementById('address').value.trim();
+      const datetime = document.getElementById('datetime').value.trim();
 
       if (name && username && age && number && address && datetime) {
         const data = {
-          services: selectedServices,
+          services: selectedServices, // Ensure this array is populated elsewhere in your script
           name,
           username,
           age,
@@ -164,14 +176,17 @@
           datetime,
         };
 
-        // Send the data back to the bot using Telegram's WebApp API
-        tg.sendData(JSON.stringify(formData));
-
-        tg.close();
+        // Check if Telegram WebApp object is available
+        if (typeof Telegram !== 'undefined' && Telegram.WebApp) {
+          Telegram.WebApp.sendData(JSON.stringify(data));
+        } else {
+          alert("Telegram WebApp is not initialized. Make sure you're running this within a Telegram Web App.");
+        }
       } else {
         alert('Please fill in all fields.');
       }
     });
+
   </script>
 </body>
 </html>
