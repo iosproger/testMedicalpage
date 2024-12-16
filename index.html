@@ -209,11 +209,17 @@
   <div class="form">
     <h2>Fill your details</h2>
     <input type="text" id="name" placeholder="Name" required>
-    <input type="text" id="username" placeholder="Username" required>
+    <input type="text" id="surname" placeholder="Surname" required>
     <input type="number" id="age" placeholder="Age" required>
+    <label>Select gender  <select id="gender" placeholder="gender">
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+    </select></label>
+
     <input type="tel" id="number" placeholder="Phone Number" required>
     <input type="text" id="address" placeholder="Address" required>
-    <input type="datetime-local" id="datetime" required>
+    <input type="date" id="date" required>
+    <input type="time" id="time" required>
     <button id="send">Send</button>
   </div>
 
@@ -256,21 +262,25 @@
 
     document.getElementById('send').addEventListener('click', () => {
       const name = document.getElementById('name').value.trim();
-      const username = document.getElementById('username').value.trim();
+      const surname = document.getElementById('surname').value.trim();
       const age = document.getElementById('age').value.trim();
       const number = document.getElementById('number').value.trim();
       const address = document.getElementById('address').value.trim();
-      const datetime = document.getElementById('datetime').value.trim();
+      const date = document.getElementById('date').value.trim();
+      const time = document.getElementById('time').value.trim();
+      const gender = document.getElementById('gender').value.trim();
 
-      if (name && username && age && number && address && datetime) {
+      if (name && surname && age && number && address && date) {
         const data = {
           services: selectedServices, // Ensure this array is populated elsewhere in your script
           name,
-          username,
+          surname,
           age,
           number,
           address,
-          datetime,
+          date,
+          time,
+          gender,
         };
 
         // Check if Telegram WebApp object is available
