@@ -213,8 +213,11 @@
     <input type="number" id="age" placeholder="Age" required>
     <input type="tel" id="number" placeholder="Phone Number" required>
     <input type="text" id="address" placeholder="Address" required>
+    
+    <!-- Separate Date and Time Inputs -->
     <input type="date" id="date" name="date" required>
     <input type="time" id="time" name="time" required>
+    
     <button id="send">Send</button>
   </div>
 
@@ -263,7 +266,10 @@
       const address = document.getElementById('address').value.trim();
       const date = document.getElementById('date').value.trim();
       const time = document.getElementById('time').value.trim();
-
+    
+      // Combine date and time into a single datetime string
+      const datetime = date && time ? `${date}T${time}` : null;
+    
       if (name && username && age && number && address && datetime) {
         const data = {
           services: selectedServices, // Ensure this array is populated elsewhere in your script
@@ -272,10 +278,9 @@
           age,
           number,
           address,
-          date,
-          time,
+          datetime,
         };
-
+    
         // Check if Telegram WebApp object is available
         if (typeof Telegram !== 'undefined' && Telegram.WebApp) {
           Telegram.WebApp.sendData(JSON.stringify(data));
@@ -286,6 +291,7 @@
         alert('Please fill in all fields.');
       }
     });
+
 
   </script>
 </body>
