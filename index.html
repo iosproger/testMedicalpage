@@ -266,9 +266,7 @@
       const address = document.getElementById('address').value.trim();
       const date = document.getElementById('date').value.trim();
       const time = document.getElementById('time').value.trim();
-    
-      // Combine date and time into a single datetime string
-      const datetime = date && time ? `${date}T${time}` : null;
+  
     
       if (name && username && age && number && address && datetime) {
         const data = {
@@ -278,7 +276,8 @@
           age,
           number,
           address,
-          datetime,
+          date,
+          time,
         };
     
         // Check if Telegram WebApp object is available
