@@ -1,193 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Service Selection</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      background-color: #f4f4f4;
-    }
-    .menu {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr); /* Two columns */
-      gap: 20px; /* Space between cards */
-      padding: 20px;
-    }
-    .card {
-      background: white;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      padding: 15px;
-      text-align: center;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-    .card img {
-      width: 150px;
-      height: 150px;
-      object-fit: cover; /* Ensures the image fits nicely */
-      border-radius: 5px;
-    }
-    .card button {
-      margin-top: 10px;
-      padding: 10px;
-      border: none;
-      border-radius: 4px;
-      color: white;
-      background: #28a745;
-      cursor: pointer;
-    }
-    .card button.remove {
-      background: #dc3545;
-    }
-    .order-btn {
-      margin: 20px 0;
-      padding: 15px 30px;
-      font-size: 18px;
-      color: white;
-      background: #007bff;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    .form {
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      padding: 20px;
-    }
-    .form input, .form button {
-      margin: 10px 0;
-      padding: 10px;
-      font-size: 16px;
-      width: 100%;
-      max-width: 300px;
-    }
-    .form button {
-      background: #007bff;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telegram WebApp Test</title>
 </head>
 <body>
-  <div class="menu">
-  <!-- Example service items -->
-  <div class="card" data-service="Service 1">
-    <img src="images/img1.jpeg" alt="Service 1">
-    <h4>Tekshirish</h4>
-    <p>7000 so'm</p>
-    <button class="add">Add</button>
-  </div>
-  <div class="card" data-service="Service 2">
-    <img src="images/img2.jpg" alt="Service 2">
-    <h4>Ukol</h4>
-    <p>3000 so'm</p>
-    <button class="add">Add</button>
-  </div>
-  <div class="card" data-service="Service 3">
-    <img src="images/img3.png" alt="Service 3">
-    <h4>Kapilnitsiya</h4>
-    <p>5000 so'm</p>
-    <button class="add">Add</button>
-  </div>
-  <div class="card" data-service="Service 4">
-    <img src="images/img4.jpg" alt="Service 4">
-    <h4>Muolaja</h4>
-    <p>3000 so'm</p>
-    <button class="add">Add</button>
-  </div>
-</div>
+    <h1>Service Selection</h1>
+    <form id="service-form">
+        <label for="service">Choose a service:</label>
+        <select id="service" name="service" required>
+            <option value="service1">Service 1</option>
+            <option value="service2">Service 2</option>
+            <option value="service3">Service 3</option>
+        </select>
+        <br><br>
 
+        <label for="name">Your Name:</label>
+        <input type="text" id="name" name="name" placeholder="Enter your name" required>
+        <br><br>
 
-  <button class="order-btn" style="display: none;">Order</button>
+        <label for="age">Your Age:</label>
+        <input type="number" id="age" name="age" placeholder="Enter your age" required>
+        <br><br>
 
-  <div class="form">
-    <h2>Fill your details</h2>
-    <input type="text" id="name" placeholder="Name" required>
-    <input type="text" id="username" placeholder="Username" required>
-    <input type="number" id="age" placeholder="Age" required>
-    <input type="tel" id="number" placeholder="Phone Number" required>
-    <input type="text" id="address" placeholder="Address" required>
-    <input type="datetime-local" id="datetime" required>
-    <button id="send">Send</button>
-  </div>
+        <button type="submit">Submit</button>
+    </form>
 
-   <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script>
         // Initialize Telegram WebApp API
         let tg = window.Telegram.WebApp;
 
         tg.expand();
-    const menu = document.querySelector('.menu');
-    const orderBtn = document.querySelector('.order-btn');
-    const form = document.querySelector('.form');
-    let selectedServices = [];
 
-    menu.addEventListener('click', (e) => {
-      if (e.target.classList.contains('add')) {
-        const card = e.target.closest('.card');
-        const serviceName = card.dataset.service;
-        selectedServices.push(serviceName);
-        e.target.textContent = 'Remove';
-        e.target.classList.remove('add');
-        e.target.classList.add('remove');
-        orderBtn.style.display = 'block';
-      } else if (e.target.classList.contains('remove')) {
-        const card = e.target.closest('.card');
-        const serviceName = card.dataset.service;
-        selectedServices = selectedServices.filter(s => s !== serviceName);
-        e.target.textContent = 'Add';
-        e.target.classList.remove('remove');
-        e.target.classList.add('add');
-        if (selectedServices.length === 0) {
-          orderBtn.style.display = 'none';
-        }
-      }
-    });
+        
 
-    orderBtn.addEventListener('click', () => {
-      menu.style.display = 'none';
-      form.style.display = 'flex';
-    });
+        // Attach the submit event to the form
+        document.getElementById('service-form').onsubmit = function(event) {
+            event.preventDefault();  // Prevent the form from submitting normally
 
-    document.getElementById('send').addEventListener('click', () => {
-      const name = document.getElementById('name').value;
-      const username = document.getElementById('username').value;
-      const age = document.getElementById('age').value;
-      const number = document.getElementById('number').value;
-      const address = document.getElementById('address').value;
-      const datetime = document.getElementById('datetime').value;
+            // Get the values from the form
+            const service = document.getElementById('service').value;
+            const name = document.getElementById('name').value;
+            const age = document.getElementById('age').value;
 
-      if (name && username && age && number && address && datetime) {
-        const data = {
-          services: selectedServices,
-          name,
-          username,
-          age,
-          number,
-          address,
-          datetime,
-        };
+            // Create the data object to send to the bot
+            const formData = {
+                service: service,
+                name: name,
+                age: age
+            };
 
-        // Send the data back to the bot using Telegram's WebApp API
+            // Log the data to console (for debugging)
+            console.log("Sending data:", JSON.stringify(formData));
+
+            // Send the data back to the bot using Telegram's WebApp API
             tg.sendData(JSON.stringify(formData));
 
             tg.close();
-        alert('Your order has been sent successfully!');
-        selectedServices = [];
-        location.reload(); // Reset the form and menu
-      } else {
-        alert('Please fill in all fields.');
-      }
-    });
-  </script>
+            // Optionally, show a message to the user that data is being sent
+            alert('Data sent to Telegram bot!');
+        };
+    </script>
+</body>
+</html></title>
+</head>
+<body>
+
 </body>
 </html>
