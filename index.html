@@ -1,67 +1,180 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Telegram WebApp Test</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Service Selection</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: #f4f4f4;
+    }
+    .menu {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 20px;
+    }
+    .card {
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      margin: 10px;
+      padding: 15px;
+      text-align: center;
+      width: 200px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .card img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 5px;
+    }
+    .card button {
+      margin-top: 10px;
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      color: white;
+      background: #28a745;
+      cursor: pointer;
+    }
+    .card button.remove {
+      background: #dc3545;
+    }
+    .order-btn {
+      margin: 20px 0;
+      padding: 15px 30px;
+      font-size: 18px;
+      color: white;
+      background: #007bff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .form {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+    .form input, .form button {
+      margin: 10px 0;
+      padding: 10px;
+      font-size: 16px;
+      width: 100%;
+      max-width: 300px;
+    }
+    .form button {
+      background: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
-    <h1>Service Selection</h1>
-    <form id="service-form">
-        <label for="service">Choose a service:</label>
-        <select id="service" name="service" required>
-            <option value="service1">Service 1</option>
-            <option value="service2">Service 2</option>
-            <option value="service3">Service 3</option>
-        </select>
-        <br><br>
+  <div class="menu">
+    <!-- Example service items -->
+    <div class="card" data-service="Service 1">
+      <img src="https://via.placeholder.com/150" alt="Service 1">
+      <h4>Service 1</h4>
+      <p>$10</p>
+      <button class="add">Add</button>
+    </div>
+    <div class="card" data-service="Service 2">
+      <img src="https://via.placeholder.com/150" alt="Service 2">
+      <h4>Service 2</h4>
+      <p>$20</p>
+      <button class="add">Add</button>
+    </div>
+  </div>
+  <button class="order-btn" style="display: none;">Order</button>
 
-        <label for="name">Your Name:</label>
-        <input type="text" id="name" name="name" placeholder="Enter your name" required>
-        <br><br>
+  <div class="form">
+    <h2>Fill your details</h2>
+    <input type="text" id="name" placeholder="Name" required>
+    <input type="text" id="username" placeholder="Username" required>
+    <input type="number" id="age" placeholder="Age" required>
+    <input type="tel" id="number" placeholder="Phone Number" required>
+    <input type="text" id="address" placeholder="Address" required>
+    <input type="datetime-local" id="datetime" required>
+    <button id="send">Send</button>
+  </div>
 
-        <label for="age">Your Age:</label>
-        <input type="number" id="age" name="age" placeholder="Enter your age" required>
-        <br><br>
 
-        <button type="submit">Submit</button>
-    </form>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script>
+    const menu = document.querySelector('.menu');
+    const orderBtn = document.querySelector('.order-btn');
+    const form = document.querySelector('.form');
+    let selectedServices = [];
 
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <script>
+    menu.addEventListener('click', (e) => {
+      if (e.target.classList.contains('add')) {
+        const card = e.target.closest('.card');
+        const serviceName = card.dataset.service;
+        selectedServices.push(serviceName);
+        e.target.textContent = 'Remove';
+        e.target.classList.remove('add');
+        e.target.classList.add('remove');
+        orderBtn.style.display = 'block';
+      } else if (e.target.classList.contains('remove')) {
+        const card = e.target.closest('.card');
+        const serviceName = card.dataset.service;
+        selectedServices = selectedServices.filter(s => s !== serviceName);
+        e.target.textContent = 'Add';
+        e.target.classList.remove('remove');
+        e.target.classList.add('add');
+        if (selectedServices.length === 0) {
+          orderBtn.style.display = 'none';
+        }
+      }
+    });
+
+    orderBtn.addEventListener('click', () => {
+      menu.style.display = 'none';
+      form.style.display = 'flex';
+    });
+
+    document.getElementById('send').addEventListener('click', () => {
+      const name = document.getElementById('name').value;
+      const username = document.getElementById('username').value;
+      const age = document.getElementById('age').value;
+      const number = document.getElementById('number').value;
+      const address = document.getElementById('address').value;
+      const datetime = document.getElementById('datetime').value;
+
+      if (name && username && age && number && address && datetime) {
+        const data = {
+          services: selectedServices,
+          name,
+          username,
+          age,
+          number,
+          address,
+          datetime,
+        };
+
         // Initialize Telegram WebApp API
         let tg = window.Telegram.WebApp;
 
         tg.expand();
 
-        
 
-        // Attach the submit event to the form
-        document.getElementById('service-form').onsubmit = function(event) {
-            event.preventDefault();  // Prevent the form from submitting normally
-
-            // Get the values from the form
-            const service = document.getElementById('service').value;
-            const name = document.getElementById('name').value;
-            const age = document.getElementById('age').value;
-
-            // Create the data object to send to the bot
-            const formData = {
-                service: service,
-                name: name,
-                age: age
-            };
-
-            // Log the data to console (for debugging)
-            console.log("Sending data:", JSON.stringify(formData));
-
-            // Send the data back to the bot using Telegram's WebApp API
-            tg.sendData(JSON.stringify(formData));
+        // Send the data back to the bot using Telegram's WebApp API
+            tg.sendData(JSON.stringify(data));
 
             tg.close();
-            // Optionally, show a message to the user that data is being sent
-            alert('Data sent to Telegram bot!');
-        };
-    </script>
+      } else {
+        alert('Please fill in all fields.');
+      }
+    });
+  </script>
 </body>
 </html>
