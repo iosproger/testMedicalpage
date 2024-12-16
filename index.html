@@ -93,6 +93,7 @@
       <p>$20</p>
       <button class="add">Add</button>
     </div>
+    <!-- Add more services here -->
   </div>
   <button class="order-btn" style="display: none;">Order</button>
 
@@ -107,8 +108,6 @@
     <button id="send">Send</button>
   </div>
 
-
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <script>
     const menu = document.querySelector('.menu');
     const orderBtn = document.querySelector('.order-btn');
@@ -161,16 +160,11 @@
           datetime,
         };
 
-        // Initialize Telegram WebApp API
-        let tg = window.Telegram.WebApp;
-
-        tg.expand();
-
-
-        // Send the data back to the bot using Telegram's WebApp API
-            tg.sendData(JSON.stringify(data));
-
-            tg.close();
+        // Send data to Telegram Web App
+        Telegram.WebApp.sendData(JSON.stringify(data));
+        alert('Your order has been sent successfully!');
+        selectedServices = [];
+        location.reload(); // Reset the form and menu
       } else {
         alert('Please fill in all fields.');
       }
