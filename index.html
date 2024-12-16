@@ -177,8 +177,10 @@
           datetime,
         };
 
-        // Send data to Telegram Web App
-        tg.sendData(JSON.stringify(data));
+        // Send the data back to the bot using Telegram's WebApp API
+            tg.sendData(JSON.stringify(formData));
+
+            tg.close();
         alert('Your order has been sent successfully!');
         selectedServices = [];
         location.reload(); // Reset the form and menu
