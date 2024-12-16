@@ -15,24 +15,23 @@
       background-color: #f4f4f4;
     }
     .menu {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr); /* Two columns */
+      gap: 20px; /* Space between cards */
       padding: 20px;
     }
     .card {
       background: white;
       border: 1px solid #ddd;
       border-radius: 8px;
-      margin: 10px;
       padding: 15px;
       text-align: center;
-      width: 200px;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
     .card img {
-      max-width: 100%;
-      height: auto;
+      width: 150px;
+      height: 150px;
+      object-fit: cover; /* Ensures the image fits nicely */
       border-radius: 5px;
     }
     .card button {
@@ -80,21 +79,34 @@
 </head>
 <body>
   <div class="menu">
-    <!-- Example service items -->
-    <div class="card" data-service="Service 1">
-      <img src="https://via.placeholder.com/150" alt="Service 1">
-      <h4>Service 1</h4>
-      <p>$10</p>
-      <button class="add">Add</button>
-    </div>
-    <div class="card" data-service="Service 2">
-      <img src="https://via.placeholder.com/150" alt="Service 2">
-      <h4>Service 2</h4>
-      <p>$20</p>
-      <button class="add">Add</button>
-    </div>
-    <!-- Add more services here -->
+  <!-- Example service items -->
+  <div class="card" data-service="Service 1">
+    <img src="images/img1.jpeg" alt="Service 1">
+    <h4>Tekshirish</h4>
+    <p>7000 so'm</p>
+    <button class="add">Add</button>
   </div>
+  <div class="card" data-service="Service 2">
+    <img src="images/img2.jpg" alt="Service 2">
+    <h4>Ukol</h4>
+    <p>3000 so'm</p>
+    <button class="add">Add</button>
+  </div>
+  <div class="card" data-service="Service 3">
+    <img src="images/img3.png" alt="Service 3">
+    <h4>Kapilnitsiya</h4>
+    <p>5000 so'm</p>
+    <button class="add">Add</button>
+  </div>
+  <div class="card" data-service="Service 4">
+    <img src="images/img4.jpg" alt="Service 4">
+    <h4>Muolaja</h4>
+    <p>3000 so'm</p>
+    <button class="add">Add</button>
+  </div>
+</div>
+
+
   <button class="order-btn" style="display: none;">Order</button>
 
   <div class="form">
@@ -108,7 +120,6 @@
     <button id="send">Send</button>
   </div>
 
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <script>
     const menu = document.querySelector('.menu');
     const orderBtn = document.querySelector('.order-btn');
