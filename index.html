@@ -16,15 +16,17 @@
       color: #333;
     }
 
+    /* Container for the menu */
     .menu {
       display: grid;
-      grid-template-columns: repeat(2, 1fr); /* Two columns layout */
+      grid-template-columns: 1fr; /* Default to 1 column */
       gap: 20px; /* Space between cards */
       padding: 20px;
       width: 100%;
       max-width: 800px; /* Restrict maximum width for better centering */
     }
 
+    /* Style for each card */
     .card {
       background: white;
       border: 1px solid #ddd;
@@ -35,11 +37,13 @@
       transition: transform 0.3s, box-shadow 0.3s;
     }
 
+    /* Hover effect for cards */
     .card:hover {
       transform: translateY(-5px);
       box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
     }
 
+    /* Image styling inside the card */
     .card img {
       width: 100%;
       max-width: 150px;
@@ -49,18 +53,21 @@
       margin-bottom: 15px;
     }
 
+    /* Heading inside the card */
     .card h4 {
       font-size: 1.2em;
       margin: 10px 0;
       color: #007bff;
     }
 
+    /* Paragraph inside the card */
     .card p {
       font-size: 1em;
       color: #555;
       margin-bottom: 15px;
     }
 
+    /* Button inside the card */
     .card button {
       padding: 10px 20px;
       border: none;
@@ -72,10 +79,12 @@
       transition: background 0.3s;
     }
 
+    /* Remove button */
     .card button.remove {
       background: #dc3545;
     }
 
+    /* Hover effect for buttons */
     .card button:hover {
       background: #218838;
     }
@@ -84,6 +93,7 @@
       background: #c82333;
     }
 
+    /* Order button outside the cards */
     .order-btn {
       margin: 20px 0;
       padding: 15px 30px;
@@ -100,6 +110,7 @@
       background: #0056b3;
     }
 
+    /* Form styling */
     .form {
       display: none;
       flex-direction: column;
@@ -123,6 +134,7 @@
       border-radius: 5px;
     }
 
+    /* Focus states for inputs and buttons */
     .form input:focus, .form button:focus {
       outline: none;
       border-color: #007bff;
@@ -141,15 +153,15 @@
       background: #0056b3;
     }
 
-    /* Responsive Design for Mobile */
-    @media (max-width: 600px) {
+    /* Mobile-first responsive adjustments */
+    @media (min-width: 600px) {
       .menu {
-        grid-template-columns: 1fr; /* Single column on small screens */
+        grid-template-columns: repeat(2, 1fr); /* 2 columns on medium and larger screens */
       }
 
       .card img {
-        max-width: 100px;
-        height: 100px;
+        max-width: 150px;
+        height: 150px;
       }
 
       .form {
